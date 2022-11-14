@@ -2,24 +2,48 @@
  * Created by nghinv on Wed Nov 09 2022
  */
 
-import React, { useState } from 'react';
-import { View, Image, StyleSheet, Text } from 'react-native';
-import { Background, LogoWithSlogan } from '../../components';
+import React, { useCallback, useState } from 'react';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  LayoutAnimation,
+} from 'react-native';
+import {
+  Background,
+  Box,
+  ElevatedButton,
+  LogoWithSlogan,
+} from '../../components';
 import { Colors, Typography } from '../../services/themes';
 import {
   AccountActiveSvg,
+  CopyAddressSvg,
   DownSvg,
   imagesPath,
   PortPolioSvg,
+  ReceiveTauSvg,
+  RefreshSvg,
+  SendTauSvg,
+  SettingSvg,
   TokenSvg,
   TokenValueSvg,
   UpSvg,
   ValueSvg,
 } from '../../utils/assets';
+import LamdenVaultSection from './components/LamdenVaultSection';
 import MenuItem from './components/MenuItem';
 
 function VaultAccount() {
   const [isExpand, setIsExpand] = useState(false);
+
+  const onChangeExpand = useCallback(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setIsExpand(preState => !preState);
+  }, []);
 
   return (
     <Background>
@@ -37,52 +61,105 @@ function VaultAccount() {
           resizeMode="cover"
         />
       </View>
-      <View style={styles.accountName}>
+      <TouchableOpacity onPress={onChangeExpand} style={styles.accountName}>
         <Text style={styles.txtAccountName}>My TAU Lamden name</Text>
         {isExpand ? <DownSvg /> : <UpSvg />}
-      </View>
-      <View style={styles.viewTotalTau}>
-        <View style={styles.viewTitleTau}>
-          <Text style={styles.txtTitleTau}>{'Total\nTAU'}</Text>
-          <Text style={styles.txtAmount}>{'0.00'}</Text>
-        </View>
-        <View style={styles.viewTau}>
-          <View style={styles.viewMenuItem}>
-            <MenuItem
-              title="Value"
-              value={'$0.00'}
-              icon={<ValueSvg />}
-              onPress={() => {
-                //
-              }}
-            />
-            <MenuItem
-              title="Tokens"
-              value={'0'}
-              icon={<TokenSvg />}
-              onPress={() => {
-                //
-              }}
-            />
-            <MenuItem
-              title="Total Value"
-              value={'$0.00'}
-              icon={<TokenValueSvg />}
-              onPress={() => {
-                //
-              }}
-            />
-            <MenuItem
-              title="Portfolio"
-              value={'%0.0'}
-              icon={<PortPolioSvg />}
-              onPress={() => {
-                //
-              }}
-            />
+      </TouchableOpacity>
+      <ScrollView>
+        <View style={styles.viewTotalTau}>
+          <View style={styles.viewTitleTau}>
+            <Text style={styles.txtTitleTau}>{'Total\nTAU'}</Text>
+            <Text style={styles.txtAmount}>{'0.00'}</Text>
+          </View>
+          <View style={styles.viewTau}>
+            <View style={styles.viewMenuItem}>
+              <MenuItem
+                title="Value"
+                value={'$0.00'}
+                icon={<ValueSvg />}
+                onPress={() => {
+                  //
+                }}
+              />
+              <MenuItem
+                title="Tokens"
+                value={'0'}
+                icon={<TokenSvg />}
+                onPress={() => {
+                  //
+                }}
+              />
+              <MenuItem
+                title="Total Value"
+                value={'$0.00'}
+                icon={<TokenValueSvg />}
+                onPress={() => {
+                  //
+                }}
+              />
+              <MenuItem
+                title="Portfolio"
+                value={'%0.0'}
+                icon={<PortPolioSvg />}
+                onPress={() => {
+                  //
+                }}
+              />
+            </View>
+            {isExpand && (
+              <>
+                <Box height={20} />
+                <ElevatedButton
+                  title="Send TAU"
+                  backgroundColor={Colors.lightBlack}
+                  icon={<SendTauSvg />}
+                  onPress={() => {
+                    //
+                  }}
+                />
+                <Box height={20} />
+                <ElevatedButton
+                  title="Receive tau"
+                  backgroundColor={Colors.lightBlack}
+                  icon={<ReceiveTauSvg />}
+                  onPress={() => {
+                    //
+                  }}
+                />
+                <Box height={20} />
+                <ElevatedButton
+                  title="Copy address"
+                  backgroundColor={Colors.lightBlack}
+                  icon={<CopyAddressSvg />}
+                  onPress={() => {
+                    //
+                  }}
+                />
+                <Box height={20} />
+                <ElevatedButton
+                  title="View transaction history"
+                  backgroundColor={Colors.lightBlack}
+                  icon={<RefreshSvg />}
+                  onPress={() => {
+                    //
+                  }}
+                />
+                <Box height={20} />
+                <ElevatedButton
+                  title="Options"
+                  backgroundColor={Colors.lightBlack}
+                  icon={<SettingSvg />}
+                  onPress={() => {
+                    //
+                  }}
+                />
+              </>
+            )}
           </View>
         </View>
-      </View>
+        <Box height={40} />
+        <LamdenVaultSection />
+      </ScrollView>
     </Background>
   );
 }
@@ -128,6 +205,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.purple,
     paddingVertical: 40,
     marginTop: 18,
+    paddingHorizontal: 20,
   },
   viewTitleTau: {
     flexDirection: 'row',
@@ -154,7 +232,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingHorizontal: 16,
   },
 });
 

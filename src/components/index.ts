@@ -14,3 +14,4 @@ export { default as TextField } from './TextField/TextField';
 export { default as TextFieldPassword } from './TextField/TextFieldPassword';
 export { default as CheckBox } from './CheckBox/CheckBox';
 export { default as Dropdown } from './Dropdown/Dropdown';
+export { default as Cell } from './Cell/Cell';

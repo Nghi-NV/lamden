@@ -20,6 +20,7 @@ interface ElevatedButtonProps {
   backgroundColor?: string;
   disabled?: boolean;
   type?: 'full' | 'normal';
+  icon?: React.ReactNode;
 }
 
 function ElevatedButton({
@@ -33,6 +34,7 @@ function ElevatedButton({
   backgroundColor = Colors.purple,
   disabled = false,
   type = 'full',
+  icon,
 }: ElevatedButtonProps) {
   const ButtonComponent: React.ElementType =
     disabled || !onPress ? View : TouchableOpacity;
@@ -50,17 +52,22 @@ function ElevatedButton({
       <Text style={[Typography.buttonText, titleStyle]}>
         {uppercase ? title.toLocaleUpperCase() : title}
       </Text>
+      {icon !== undefined && <View style={styles.icon}>{icon}</View>}
     </ButtonComponent>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   disabled: {
     opacity: 0.5,
+  },
+  icon: {
+    marginLeft: 10,
   },
 });
 

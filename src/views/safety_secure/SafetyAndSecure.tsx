@@ -10,7 +10,11 @@ import { imagesPath } from '../../utils/assets';
 function SafetyAndSecure() {
   return (
     <Background style={styles.container}>
-      <Image source={imagesPath.navbarBackground} style={styles.navImage} />
+      <Image
+        source={imagesPath.navbarBackground}
+        resizeMode="cover"
+        style={styles.navImage}
+      />
     </Background>
   );
 }
@@ -21,7 +25,8 @@ const styles = StyleSheet.create({
   },
   navImage: {
     height: 184,
-    width: 200,
+    width: '100%',
+    position: 'absolute',
   },
 });
 
